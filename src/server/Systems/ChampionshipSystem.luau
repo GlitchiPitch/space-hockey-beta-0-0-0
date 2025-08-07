@@ -6,6 +6,8 @@ local ChampionshipSystem = {}
 -- ===================== Private ===================== --
 local _dataSystem, _logger
 
+--@todo: возможно есть смысл сделать какой цикл, который будет обновлять дату через интервал и возможно привязаться к глобальному апдейту, если он есть
+
 function ChampionshipSystem:Initialize(ServerBootstrap: Types.ServerBootstrapType)
 	_dataSystem = ServerBootstrap._systems.dataSystem
 	_logger = ServerBootstrap._logger.new(script.Name)

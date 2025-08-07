@@ -11,9 +11,6 @@ local function setupUI()
 	end
 end
 
-
-
-
 -- ===================== API ===================== --
 function ClubsGuiModule:Initialize(ClientBootstrap: Types.ClientBootstrapType)
 	_clubsGui = ClientBootstrap._clientAssets.UI.Clubs
@@ -29,11 +26,15 @@ function ClubsGuiModule:Setup()
 end
 
 function ClubsGuiModule:UpdateClubsMember(clubsMember: { [string]: { number } }) 
-    
+    for clubName: string, members: { number } in clubsMember do
+        -- findFirstChild
+	end
 end
 
 function ClubsGuiModule:UpdateClubsRating(clubsRating: { [string]: number }) 
-    
+    for clubName: string, rating: number in clubsRating do
+        -- findFirstChild
+	end
 end
 
 

@@ -9,6 +9,7 @@ local _logger, _remotes, _uiService
 local function receiveClubsMember(clubsMember: { [string]: { number } })
     _uiService._guiModules.clubsGui:UpdateClubsMember(clubsMember)
 end
+
 local function receiveClubsRating(clubsRating: { [string]: number })
     _uiService._guiModules.clubsGui:UpdateClubsRating(clubsRating)
 end
