@@ -14,4 +14,6 @@ export type PlayerDataType = SharedTypes.PlayerDataType
 export type GamePlayerDataType = SharedTypes.GamePlayerDataType
 export type FinalDataType = SharedTypes.FinalDataType
 
+export type InventoryItemEnum = "Animation" | "Skin" | "Stick" | "Trail"
+
 return {}

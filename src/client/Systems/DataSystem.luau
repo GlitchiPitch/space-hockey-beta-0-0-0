@@ -17,6 +17,7 @@ local function subscribeDataRemoteEvent()
     _remotes:SubscribeDataRemoteEvent(script.Name, callbacks)
 end
 
+-- ===================== API ===================== --
 function DataSytem:Initialize(ClientBootstrap: Types.ClientBootstrapType)
     _remotes = ClientBootstrap._remotes
 end
@@ -25,7 +26,6 @@ function DataSytem:Setup()
     subscribeDataRemoteEvent()
 end
 
--- ===================== API ===================== --
 function DataSytem:GetPlayerData(): Types.PlayerDataType
     return _playerData
 end

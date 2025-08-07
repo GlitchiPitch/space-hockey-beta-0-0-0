@@ -194,6 +194,8 @@ function DataSystem:UpdatePlayerData(userId: number, playerData: PlayerDataTempl
 		_logger:info(`данные игрока {userId} были обновлены после выхода игрока`)
 	else
 		_logger:warn(`данные игрока {userId} обновлены`)
+		local player = Players:GetPlayerByUserId(userId)
+		_remotes:DataRemoteEventFireClient(player).receiveData(playerData)
 	end
 
 end
