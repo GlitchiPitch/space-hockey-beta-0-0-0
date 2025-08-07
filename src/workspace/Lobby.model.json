@@ -1,0 +1,293 @@
+{
+    "className": "Folder",
+    "children": [
+        {
+            "className": "Model",
+            "name": "Alien",
+            "children": [
+                {
+                    "className": "BillboardGui",
+                    "name": "CounterBillboardGui",
+                    "children": [
+                        {
+                            "className": "TextLabel",
+                            "children": [
+                                {
+                                    "className": "UIStroke"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "className": "Folder",
+                    "name": "Pads",
+                    "children": [
+                        {
+                            "className": "Part",
+                            "name": "1",
+                            "children": [
+                                {
+                                    "className": "ProximityPrompt"
+                                },
+                                {
+                                    "className": "BillboardGui",
+                                    "name": "PlayerBillboardGui",
+                                    "children": [
+                                        {
+                                            "className": "ImageLabel"
+                                        },
+                                        {
+                                            "className": "TextLabel"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "className": "Part",
+                            "name": "2",
+                            "children": [
+                                {
+                                    "className": "ProximityPrompt"
+                                },
+                                {
+                                    "className": "BillboardGui",
+                                    "name": "PlayerBillboardGui",
+                                    "children": [
+                                        {
+                                            "className": "ImageLabel"
+                                        },
+                                        {
+                                            "className": "TextLabel"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "className": "Part",
+                            "name": "3",
+                            "children": [
+                                {
+                                    "className": "ProximityPrompt"
+                                },
+                                {
+                                    "className": "BillboardGui",
+                                    "name": "PlayerBillboardGui",
+                                    "children": [
+                                        {
+                                            "className": "ImageLabel"
+                                        },
+                                        {
+                                            "className": "TextLabel"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "className": "Part",
+                            "name": "4",
+                            "children": [
+                                {
+                                    "className": "ProximityPrompt"
+                                },
+                                {
+                                    "className": "BillboardGui",
+                                    "name": "PlayerBillboardGui",
+                                    "children": [
+                                        {
+                                            "className": "ImageLabel"
+                                        },
+                                        {
+                                            "className": "TextLabel"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "className": "Part",
+                            "name": "5",
+                            "children": [
+                                {
+                                    "className": "ProximityPrompt"
+                                },
+                                {
+                                    "className": "BillboardGui",
+                                    "name": "PlayerBillboardGui",
+                                    "children": [
+                                        {
+                                            "className": "ImageLabel"
+                                        },
+                                        {
+                                            "className": "TextLabel"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "className": "Model",
+            "name": "Human",
+            "children": [
+                {
+                    "className": "BillboardGui",
+                    "name": "CounterBillboardGui",
+                    "children": [
+                        {
+                            "className": "TextLabel",
+                            "children": [
+                                {
+                                    "className": "UIStroke"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "className": "Folder",
+                    "name": "Pads",
+                    "children": [
+                        {
+                            "className": "Part",
+                            "name": "1",
+                            "children": [
+                                {
+                                    "className": "ProximityPrompt"
+                                },
+                                {
+                                    "className": "BillboardGui",
+                                    "name": "PlayerBillboardGui",
+                                    "children": [
+                                        {
+                                            "className": "ImageLabel"
+                                        },
+                                        {
+                                            "className": "TextLabel"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "className": "Part",
+                            "name": "2",
+                            "children": [
+                                {
+                                    "className": "ProximityPrompt"
+                                },
+                                {
+                                    "className": "BillboardGui",
+                                    "name": "PlayerBillboardGui",
+                                    "children": [
+                                        {
+                                            "className": "ImageLabel"
+                                        },
+                                        {
+                                            "className": "TextLabel"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "className": "Part",
+                            "name": "3",
+                            "children": [
+                                {
+                                    "className": "ProximityPrompt"
+                                },
+                                {
+                                    "className": "BillboardGui",
+                                    "name": "PlayerBillboardGui",
+                                    "children": [
+                                        {
+                                            "className": "ImageLabel"
+                                        },
+                                        {
+                                            "className": "TextLabel"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "className": "Part",
+                            "name": "4",
+                            "children": [
+                                {
+                                    "className": "ProximityPrompt"
+                                },
+                                {
+                                    "className": "BillboardGui",
+                                    "name": "PlayerBillboardGui",
+                                    "children": [
+                                        {
+                                            "className": "ImageLabel"
+                                        },
+                                        {
+                                            "className": "TextLabel"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "className": "Part",
+                            "name": "5",
+                            "children": [
+                                {
+                                    "className": "ProximityPrompt"
+                                },
+                                {
+                                    "className": "BillboardGui",
+                                    "name": "PlayerBillboardGui",
+                                    "children": [
+                                        {
+                                            "className": "ImageLabel"
+                                        },
+                                        {
+                                            "className": "TextLabel"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "className": "Part",
+            "name": "Random",
+            "children": [
+                {
+                    "className": "BillboardGui",
+                    "name": "CounterBillboardGui",
+                    "children": [
+                        {
+                            "className": "TextLabel",
+                            "children": [
+                                {
+                                    "className": "UIStroke"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "className": "ProximityPrompt"
+                }
+            ]
+        },
+        {
+            "className":"SpawnLocation"
+        }
+    ]
+}

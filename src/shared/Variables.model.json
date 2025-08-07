@@ -1,0 +1,9 @@
+{
+    "className": "Configuration",
+    "children": [
+        {
+            "className": "BoolValue",
+            "name": "GameRunning"
+        }
+    ]
+}

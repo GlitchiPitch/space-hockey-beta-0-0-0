@@ -1,0 +1,63 @@
+{
+    "className": "Folder",
+    "children": [
+        {
+            "className": "Folder",
+            "name": "SpawnPoints",
+            "children": [
+                {
+                    "className": "Folder",
+                    "name": "Alien",
+                    "children": [
+                        {
+                            "className": "Part",
+                            "name": "1"
+                        },
+                        {
+                            "className": "Part",
+                            "name": "2"
+                        },
+                        {
+                            "className": "Part",
+                            "name": "3"
+                        },
+                        {
+                            "className": "Part",
+                            "name": "4"
+                        },
+                        {
+                            "className": "Part",
+                            "name": "5"
+                        }
+                    ]
+                },
+                {
+                    "className": "Folder",
+                    "name": "Human",
+                    "children": [
+                        {
+                            "className": "Part",
+                            "name": "1"
+                        },
+                        {
+                            "className": "Part",
+                            "name": "2"
+                        },
+                        {
+                            "className": "Part",
+                            "name": "3"
+                        },
+                        {
+                            "className": "Part",
+                            "name": "4"
+                        },
+                        {
+                            "className": "Part",
+                            "name": "5"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

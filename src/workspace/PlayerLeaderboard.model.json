@@ -1,0 +1,23 @@
+{
+    "className": "Part",
+    "children": [
+        {
+            "className": "SurfaceGui",
+            "name": "CurrentWeek",
+            "children": [
+                {
+                    "className": "ScrollingFrame"
+                }
+            ]
+        },
+        {
+            "className": "SurfaceGui",
+            "name": "LastWeek",
+            "children": [
+                {
+                    "className": "ScrollingFrame"
+                }
+            ]
+        }
+    ]
+}

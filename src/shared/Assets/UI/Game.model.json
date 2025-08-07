@@ -1,0 +1,27 @@
+{
+    "className": "ScreenGui",
+    "children": [
+        {
+            "className": "ImageLabel",
+            "name": "Panel",
+            "children": [
+                {
+                    "className": "TextLabel",
+                    "name": "AlienScoreLabel"
+                },
+                {
+                    "className": "TextLabel",
+                    "name": "HumanScoreLabel"
+                },
+                {
+                    "className": "TextLabel",
+                    "name": "RoundCounterLabel"
+                },
+                {
+                    "className": "TextLabel",
+                    "name": "RoundTimerLabel"
+                }
+            ]
+        }
+    ]
+}

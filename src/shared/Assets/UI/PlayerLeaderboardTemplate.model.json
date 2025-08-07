@@ -1,0 +1,38 @@
+{
+    "className": "Frame",
+    "children": [
+        {
+            "className": "ImageLabel",
+            "name": "Background",
+            "children": [
+                {
+                    "className": "ImageLabel",
+                    "name": "Icon",
+                    "children": [
+                        {
+                            "className": "UIAspectRatioConstraint"
+                        },
+                        {
+                            "className": "UICorner"
+                        },
+                        {
+                            "className": "UIStroke"
+                        }
+                    ]
+                },
+                {
+                    "className": "TextLabel",
+                    "name": "PlayerNameLabel"
+                },
+                {
+                    "className": "TextLabel",
+                    "name": "RankLabel"
+                },
+                {
+                    "className": "TextLabel",
+                    "name": "ScoreLabel"
+                }
+            ]
+        }
+    ]
+}

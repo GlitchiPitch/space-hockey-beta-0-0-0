@@ -1,0 +1,56 @@
+{
+    "className": "ScreenGui",
+    "children": [
+        {
+            "className": "Frame",
+            "name": "Stats",
+            "children": [
+                {
+                    "className": "UIListLayout"
+                }
+            ]
+        },
+        {
+            "className": "TextButton",
+            "name": "PadQuitButton",
+            "children": [
+                {
+                    "className": "ImageLabel"
+                },
+                {
+                    "className": "TextLabel"
+                }
+            ]
+        },
+        {
+            "className": "ImageLabel",
+            "name": "GoToPadZone",
+            "children": [
+                {
+                    "className": "TextLabel"
+                },
+                {
+                    "className": "TextButton",
+                    "name": "GoToPadZoneButton",
+                    "children": [
+                        {
+                            "className": "ImageLabel"
+                        },
+                        {
+                            "className": "TextLabel"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "className": "ImageLabel",
+            "name": "PrepareToMatch",
+            "children": [
+                {
+                    "className": "TextLabel"
+                }
+            ]
+        }
+    ]
+}

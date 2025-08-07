@@ -1,0 +1,33 @@
+{
+  "name": "space-hockey-v1.3",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "Shared": {
+        "$path": "src/shared"
+      }
+    },
+    "ServerScriptService": {
+      "Server": {
+        "$path": "src/server"
+      }
+    },
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "Client": {
+          "$path": "src/client"
+        }
+      }
+    },
+    "StarterGui": {
+      "$path": "src/ui"
+    },
+    "Workspace": {
+      "$ignoreUnknownInstances": true,
+      "$path": "src/workspace"
+    },
+    "Teams": {
+      "$path": "src/teams"
+    }
+  }
+}
