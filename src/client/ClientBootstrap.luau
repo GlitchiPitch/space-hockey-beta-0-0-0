@@ -39,11 +39,13 @@ function ClientBootstrap:Initialize()
 	-- }
 
 	self._assets = ReplicatedStorage.Shared.Assets
+	self._clientAssets = script.Parent.Assets
 
 	self._utils = require(ReplicatedStorage.Shared.Utils)
 	self._logger = require(ReplicatedStorage.Shared.Logger)
 	self.settings = require(ReplicatedStorage.Shared.Settings)
 	self.config = require(ReplicatedStorage.Shared.Config)
+	self.clubsRegistry = require(ReplicatedStorage.Shared.ClubsRegistry)
 
 	self.player = Players.LocalPlayer
 

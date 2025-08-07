@@ -7,14 +7,14 @@ local FinalGuiModule = {}
 -- ===================== Private ===================== --
 -- @todo: надо привести в порядок приватные переменные
 local _logger, _finalLocationTemplate, _characterTemplate, _utils
-local _finalLocation, _finalGuiTemplate, _finalGui, player
-
+local _finalLocation, _finalGui, player
 
 local function setCharacters(finalData: Types.FinalDataType)
     for teamName: Types.TeamsEnum, team: Types.FinalTeamDataType in finalData.teams do
         for index, playerData in team do
             if teamName == finalData.playerTeam then
                 if _utils:ValidatePlayer(playerData.userId) then
+                    local player = Players:GetPlayerByUserId(playerData.userId)
                     local character = _characterTemplate:Clone()
                     --@notImplemented
                 end
@@ -41,21 +41,20 @@ local function setData(finalData: Types.FinalDataType)
     end
 end
 
+-- ===================== API ===================== --
 function FinalGuiModule:Initialize(ClientBootstrap: Types.ClientBootstrapType)
-    _utils = ClientBootstrap._utils
     _finalLocationTemplate = ClientBootstrap._assets.FinalLocation.Location
     _characterTemplate = ClientBootstrap._assets.FinalLocation.CharacterTemplate
-
-    _finalGuiTemplate = ClientBootstrap._assets.UI.Final
+    _finalGui = ClientBootstrap._clientAssets.UI.Final
+    _utils = ClientBootstrap._utils
 
     player = ClientBootstrap.player
 end
 
 function FinalGuiModule:Setup()
-    
+    _finalGui.Parent = player.PlayerGui
 end
 
--- ===================== API ===================== --
 function FinalGuiModule:SetFinal(finalData: Types.FinalDataType)
     setLocation(true)
     setData(finalData)
@@ -63,12 +62,7 @@ function FinalGuiModule:SetFinal(finalData: Types.FinalDataType)
 end
 
 function FinalGuiModule:SetActive(state: boolean)
-    if state then
-        _finalGui = _finalGuiTemplate:Clone()
-        _finalGui.Parent = player.PlayerGui
-    else
-        _finalGui:Destroy()
-    end
+    _finalGui.Enabled = state
 end
 
 return FinalGuiModule

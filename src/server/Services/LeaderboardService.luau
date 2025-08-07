@@ -77,6 +77,7 @@ local function update()
 	_utils:AddConnectToGameClose(`{script.Name}_onRender`, onRender)
 end
 
+-- ===================== API ===================== --
 function LeaderboardService:Initialize(ServerBootstrap: Types.ServerBootstrapType)
 	_logger = ServerBootstrap._logger.new(script.Name)
 	_championshipSystem = ServerBootstrap._systems.championshipSystem

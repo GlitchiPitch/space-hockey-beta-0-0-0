@@ -10,7 +10,7 @@ local UIService = {}
 local _logger, _remotes, _utils, _clientBootstrap
 local player
 
-local _validScreensForButtonsCooldown = {
+local _blackListScreensForButtonsCooldown = {
     "Game"
 }
 
@@ -26,7 +26,7 @@ end
 
 local function setButtonsCooldown()
     local function onPlayerGuiChildAdded(child: ScreenGui)
-        if not table.find(_validScreensForButtonsCooldown, child.Name) then
+        if not table.find(_blackListScreensForButtonsCooldown, child.Name) then
             for _, v in child:GetDescendants() do
                 if v:IsA("GuiButton") then
                     local function onClick()
@@ -64,6 +64,7 @@ function UIService:Initialize(ClientBootstrap: Types.ClientBootstrapType)
         mainGui = require(script.Parent.Parent.Modules.MainGui),
         gameGui = require(script.Parent.Parent.Modules.GameGui),
         finalGui = require(script.Parent.Parent.Modules.FinalGui),
+        clubsGui = require(script.Parent.Parent.Modules.ClubsGui),
     }
 end
 

@@ -42,7 +42,10 @@ local PlayerDataTemplate = {
         }
     },
 
-	Tutorial = false,
+	Tutorial = {
+		completed = false,
+		visited = false,
+	},
 	Club = "",
 
 	DailyReward = {

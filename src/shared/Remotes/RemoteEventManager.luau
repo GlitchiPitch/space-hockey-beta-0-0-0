@@ -60,6 +60,8 @@ local RemoteEventManager = {
 			},
 			fromServer = {
 				receiveData = "receiveData",
+				receiveClubsMember = "receiveClubsMember",
+				receiveClubsRating = "receiveClubsRating",
 			},
 		},
 	},
@@ -158,6 +160,17 @@ if RunService:IsServer() then
 					RemoteEventManager.actions.dataRemoteEvent.fromServer.receiveData,
 					data
 				)
+			end,
+		}
+	end
+
+	function RemoteEventManager:DataRemoteEventFireAllClients()
+		return {
+			receiveClubsMember = function(data)
+				_instances.dataRemoteEvent:FireAllClients(data)
+			end,
+			receiveClubsRating = function(data)
+				_instances.dataRemoteEvent:FireAllClients(data)
 			end,
 		}
 	end

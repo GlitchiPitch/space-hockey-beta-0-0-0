@@ -30,6 +30,11 @@ function ServerBootstrap:Initialize()
 
 	self._managers = {
 		gameManager = require(script.Parent.Managers.GameManager),
+		dailyRewardManager = require(script.Parent.Managers.DailyRewardManager),
+	}
+
+	self._handlers = {
+		tutorialHandler = require(script.Parent.Handlers.TutorialHandler),
 	}
 
 	self._remotes = require(ReplicatedStorage.Shared.Remotes.RemoteEventManager)
@@ -57,9 +62,9 @@ end
 
 function ServerBootstrap:Setup()
 	-- initialize all modules
-    self._utils:InitializeModules(self._systems, self.__mainLogger, self)
-    self._utils:InitializeModules(self._services, self.__mainLogger, self)
-	
+	self._utils:InitializeModules(self._systems, self.__mainLogger, self)
+	self._utils:InitializeModules(self._services, self.__mainLogger, self)
+
 	-- setup all modules
 	self._utils:SetupModules(self._systems, self.__mainLogger)
 	self._utils:SetupModules(self._services, self.__mainLogger)

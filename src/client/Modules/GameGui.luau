@@ -4,30 +4,25 @@ local Types = require(ReplicatedStorage.Shared.Types)
 local GameGuiModule = {}
 
 -- ===================== Private ===================== --
-local _gameGuiTemplate, player
+local player
 local _gameGui
 
 local function setupUI()
     --@notImplemented
 end
 
+-- ===================== API ===================== --
 function GameGuiModule:Initialize(ClientBootstrap: Types.ClientBootstrapType)
     player = ClientBootstrap.player
-    _gameGuiTemplate = ClientBootstrap._assets.UI.Game
+    _gameGui = ClientBootstrap._clientAssets.UI.Game
 end
 
 function GameGuiModule:Setup()
+    _gameGui.Parent = player.PlayerGui
 end
 
--- ===================== API ===================== --
 function GameGuiModule:SetActive(state: boolean)
-    if state then
-        _gameGui = _gameGuiTemplate:Clone()
-        _gameGui.Parent = player.PlayerGui
-        setupUI()
-    else
-        _gameGui:Destroy()
-    end
+    _gameGui.Enabled = state
 end
 
 function GameGuiModule:UpdateGameData(gameData: Types.GameDataType)

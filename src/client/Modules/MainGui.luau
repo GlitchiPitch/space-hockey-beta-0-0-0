@@ -27,8 +27,9 @@ local function setupUI()
 		_mainGui.GoToPadZone.GoToPadZoneButton.MouseButton1Click:Connect(onGoToPadZoneButtonClick)
 end
 
+-- ===================== API ===================== --
 function MainUIModule:Initialize(ClientBootstrap: Types.ClientBootstrapType)
-	_mainGui = ClientBootstrap._assets.UI.Main
+	_mainGui = ClientBootstrap._clientAssets.UI.Main
 	_utils = ClientBootstrap._utils
 	_lobbySystem = ClientBootstrap._systems.lobbySystem
 	player = ClientBootstrap.player
@@ -39,7 +40,6 @@ function MainUIModule:Setup()
 	setupUI()
 end
 
--- ===================== API ===================== --
 function MainUIModule:ShowPadQuitButton(lobbyQuitPadCallback: () -> ())
 	_mainGui.PadQuitButton.Visible = true
 	_lobbyQuitPadCallback = lobbyQuitPadCallback
