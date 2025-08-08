@@ -254,7 +254,6 @@ function DataSystem:UpdateClubRating(clubName: string, value: number)
 	if _sessionData._championshipStore.currentWeek.clubs[clubName] then
 		_sessionData._championshipStore.currentWeek.clubs[clubName] = value
 	end
-
 end
 
 function DataSystem:GetPlayerRating(userId: number): number

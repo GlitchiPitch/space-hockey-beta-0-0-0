@@ -7,8 +7,11 @@ local ClubsGuiModule = {}
 local _clubsGui, clubsRegistry, clubLeaderboardTemplate, player
 
 local function setupUI()
-	for clubName: string, clubIcon: number in clubsRegistry do
-	end
+	for clubType: string, clubs: { [string]: { icon: number } } in clubsRegistry do
+        for clubName, icon in clubs do
+			-- template:Clone()
+        end
+    end
 end
 
 -- ===================== API ===================== --

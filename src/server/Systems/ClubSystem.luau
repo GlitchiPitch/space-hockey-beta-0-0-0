@@ -3,26 +3,41 @@ local Types = require(script.Parent.Parent.Types)
 local ClubSystem = {}
 
 -- ===================== Private ===================== --
-local _logger, _dataSystem, _remotes
+local _logger, _dataSystem, _remotes, clubsRegistry
 
+local function onGameClose()
+    for _, clubs: { [string]: { icon: number } } in clubsRegistry do
+        for clubName: string, _ in clubs do
+            _dataSystem:PostClubMembers(clubName)
+        end
+    end
+end
+
+local function getClubsMembers()
+    for _, clubs: { [string]: { icon: number } } in clubsRegistry do
+        for clubName: string, _ in clubs do
+            _dataSystem:GetClubMembers(clubName)
+        end
+    end
+end
+
+-- ===================== API ===================== --
 function ClubSystem:Initialize(ServerBootstrap: Types.ServerBootstrapType)
     _logger = ServerBootstrap._logger.new(script.Name)
     _dataSystem = ServerBootstrap._systems.dataSystem
     _remotes = ServerBootstrap._remotes
+    clubsRegistry = ServerBootstrap.clubsRegistry
 end
 
 function ClubSystem:Setup()
+    getClubsMembers()
+    game:BindToClose(onGameClose)
 end
 
 function ClubSystem:GetClubMembers(clubName: string): { number }
     return _dataSystem:GetClubMembers(clubName)
 end
 
-function ClubSystem:PostClubMembers(clubName: string)
-    _dataSystem:PostClubMembers(clubName)
-end
-
--- ===================== API ===================== --
 function ClubSystem:AddMember(clubName: string, player: Player)
     local clubMembers = _dataSystem:GetClubMembers(clubName)
     if not table.find(clubMembers, player.UserId) then
