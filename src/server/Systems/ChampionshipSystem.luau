@@ -1,21 +1,42 @@
+local Players = game:GetService("Players")
 --!nocheck
 local Types = require(script.Parent.Parent.Types)
 
 local ChampionshipSystem = {}
 
 -- ===================== Private ===================== --
-local _dataSystem, _logger, _remotes, clubsRegistry, cache
+local _dataSystem, _logger, _remotes, clubsRegistry, cache, _updateRatingsTime
+
+local function savePlayersRating()
+	while true do
+		for _, player: Player in Players:GetPlayers() do
+			_dataSystem:SavePlayerRating(player.UserId)
+			task.wait(0.1)
+		end
+
+		for clubName: string, _ in clubsRegistry do
+			_dataSystem:SaveClubRating(clubName)
+			task.wait(0.1)
+		end
+
+		task.wait(_updateRatingsTime)
+	end
+end
 
 -- ===================== API ===================== --
 function ChampionshipSystem:Initialize(ServerBootstrap: Types.ServerBootstrapType)
 	_dataSystem = ServerBootstrap._systems.dataSystem
 	_logger = ServerBootstrap._logger.new(script.Name)
 	_remotes = ServerBootstrap._remotes
-    clubsRegistry = ServerBootstrap.clubsRegistry
+	clubsRegistry = ServerBootstrap.clubsRegistry
 	cache = ServerBootstrap.cache
+
+	_updateRatingsTime = 5
 end
 
-function ChampionshipSystem:Setup() end
+function ChampionshipSystem:Setup()
+	coroutine.wrap(savePlayersRating)()
+end
 
 function ChampionshipSystem:GetPlayerRating(player: Player)
 	return _dataSystem:GetPlayerRating()
@@ -27,9 +48,17 @@ function ChampionshipSystem:PostPlayerRating() end
 
 function ChampionshipSystem:PostClubRating() end
 
-function ChampionshipSystem:UpdateClubRating(clubName: string, value: number) end
+function ChampionshipSystem:UpdateClubRating(clubName: string, value: number)
+	-- local clubRating = _dataSystem:GetClubRating(clubName)
+	-- -- ???
+	-- clubRating += value
+	_dataSystem:UpdateClubRating(clubName, value)
+	_remotes:DataRemoteEventFireAllClients().receiveClubRating({ clubName = clubName, rating = value })
+end
 
-function ChampionshipSystem:UpdatePlayerRating(userId: number, value: number) end
+function ChampionshipSystem:UpdatePlayerRating(userId: number, value: number)
+	_dataSystem:UpdatePlayerRating(userId, value)
+end
 
 function ChampionshipSystem:GetCurrentWeekTopClubs()
 	return _dataSystem:GetCurrentWeekTopClubs()
@@ -44,24 +73,6 @@ function ChampionshipSystem:GetCurrentWeekTopPlayers()
 end
 function ChampionshipSystem:GetLastWeekTopPlayers()
 	return _dataSystem:GetLastWeekTopPlayers()
-end
-
---@todo: возможно есть смысл сделать какой цикл, который будет обновлять дату через интервал и возможно привязаться к глобальному апдейту, если он есть
-
-function ChampionshipSystem:UpdateClubsRating()
-    cache.clubsRating = {} :: { [string]: number }
-    for _, clubs: { [string]: { icon: number } } in clubsRegistry do
-        for clubName, _ in clubs do
-            local clubRating = _dataSystem:GetClubRating(clubName)
-            cache.clubsRating[clubName] = clubRating
-        end
-    end
-
-    _remotes:DataRemoteEventFireAllClients().receiveClubsRating(cache.clubsRating)
-end
-
-function ChampionshipSystem:UpdatePlayersRating()
-	
 end
 
 return ChampionshipSystem

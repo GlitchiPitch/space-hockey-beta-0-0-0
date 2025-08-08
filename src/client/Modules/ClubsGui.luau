@@ -8,11 +8,13 @@ local _clubsGui, clubsRegistry, clubLeaderboardTemplate, player
 
 local function setupUI()
 	for clubType: string, clubs: { [string]: { icon: number } } in clubsRegistry do
-        for clubName, icon in clubs do
+		for clubName, icon in clubs do
 			-- template:Clone()
-        end
-    end
+		end
+	end
 end
+
+local function updateClubMemberUI() end
 
 -- ===================== API ===================== --
 function ClubsGuiModule:Initialize(ClientBootstrap: Types.ClientBootstrapType)
@@ -28,17 +30,15 @@ function ClubsGuiModule:Setup()
 	setupUI()
 end
 
-function ClubsGuiModule:UpdateClubsMember(clubsMember: { [string]: { number } }) 
-    for clubName: string, members: { number } in clubsMember do
-        -- findFirstChild
-	end
+function ClubsGuiModule:UpdateClubMembers(data: Types.receiveClubMembersType)
+	local clubFrame = _clubsGui:FindFirstChild(data.clubName)
+	clubFrame.MembersLabel.Text = data.clubMembers
+	-- updateClubMemberUI()
 end
 
-function ClubsGuiModule:UpdateClubsRating(clubsRating: { [string]: number }) 
-    for clubName: string, rating: number in clubsRating do
-        -- findFirstChild
-	end
+function ClubsGuiModule:UpdateClubRating(data: Types.receiveClubRatingType)
+	local clubFrame = _clubsGui:FindFirstChild(data.clubName)
+	clubFrame.RatingLabel.Text = data.rating
 end
-
 
 return ClubsGuiModule

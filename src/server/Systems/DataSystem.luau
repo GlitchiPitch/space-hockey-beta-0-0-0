@@ -31,20 +31,20 @@ local function getCurrentWeek(): number
 			e = os.time({ year = 2025, month = 8, day = 3, hour = 0 }),
 		},
 		[5] = {
-			s = os.time({ year = 2025, month = 8, day = 4, hour = 0 }),
-			e = os.time({ year = 2025, month = 8, day = 10, hour = 0 }),
+			s = os.time({ year = 2025, month = 8, day = 4, hour = 24 }),
+			e = os.time({ year = 2025, month = 8, day = 10, hour = 24 }),
 		},
 		[6] = {
-			s = os.time({ year = 2025, month = 8, day = 11, hour = 0 }),
-			e = os.time({ year = 2025, month = 8, day = 17, hour = 0 }),
+			s = os.time({ year = 2025, month = 8, day = 11, hour = 24 }),
+			e = os.time({ year = 2025, month = 8, day = 17, hour = 24 }),
 		},
 		[7] = {
-			s = os.time({ year = 2025, month = 8, day = 18, hour = 0 }),
-			e = os.time({ year = 2025, month = 8, day = 24, hour = 0 }),
+			s = os.time({ year = 2025, month = 8, day = 18, hour = 24 }),
+			e = os.time({ year = 2025, month = 8, day = 24, hour = 24 }),
 		},
 		[8] = {
-			s = os.time({ year = 2025, month = 8, day = 25, hour = 0 }),
-			e = os.time({ year = 2025, month = 8, day = 25, hour = 0 }),
+			s = os.time({ year = 2025, month = 8, day = 25, hour = 24 }),
+			e = os.time({ year = 2025, month = 8, day = 25, hour = 24 }),
 		},
 	}
 	local currentWeek = 1
@@ -54,6 +54,7 @@ local function getCurrentWeek(): number
 		if t > v.s and t < v.e then
 			currentWeek = i
 			print("currentWeek", i)
+			break
 		end
 	end
 
@@ -108,25 +109,25 @@ function DataSystem:Initialize(ServerBootstrap: Types.ServerBootstrapType)
 	_currentWeek = getCurrentWeek()
 
 	_stores = {
-		_playerStore = DataStoreService:GetDataStore("Player"),
-		_clubStore = DataStoreService:GetDataStore("Club"),
+		_playerStore = DataStoreService:GetDataStore("Player"), -- стата игроков
+		_clubStore = DataStoreService:GetDataStore("Club"), -- мемберы клубов
 		_championshipStore = {
 			lastWeek = {
-				clubs = {
+				clubs = { -- топ клубов
 					store = DataStoreService:GetOrderedDataStore("Championship" .. "Club" .. _currentWeek - 1),
 					pageSize = 5,
 				},
-				players = {
+				players = { -- топ игроков
 					store = DataStoreService:GetOrderedDataStore("Championship" .. "Player" .. _currentWeek - 1),
 					pageSize = 50,
 				},
 			},
 			currentWeek = {
-				clubs = {
+				clubs = { -- топ клубов
 					store = DataStoreService:GetOrderedDataStore("Championship" .. "Club" .. _currentWeek),
 					pageSize = 5,
 				},
-				players = {
+				players = { -- топ игроков
 					store = DataStoreService:GetOrderedDataStore("Championship" .. "Player" .. _currentWeek),
 					pageSize = 50,
 				},
@@ -147,12 +148,16 @@ function DataSystem:Initialize(ServerBootstrap: Types.ServerBootstrapType)
 		},
 		_playerStore = {} :: { [number]: PlayerDataTemplate.PlayerDataTemplateType },
 		_clubStore = {} :: { [string]: { members: { number } } },
+		_clubTopPlayersStore = {} :: { [string]: { userId: number, rating: number } },
 	}
 
 	_canPost = false
+
+	-- public
+	self.currentWeek = _currentWeek
 end
 
-function DataSystem:Setup() 
+function DataSystem:Setup()
 	subscribeDataRemoteEvent()
 end
 
@@ -160,8 +165,7 @@ end
 function DataSystem:GetPlayerData(userId: number): Types.PlayerDataType
 	if not _sessionData._playerStore[userId] then
 		_logger:warn(`данных игрока {userId} не было в момент вызова`)
-		_sessionData._playerStore[userId] = _stores._playerStore:GetAsync(userId)
-			or table.clone(PlayerDataTemplate)
+		_sessionData._playerStore[userId] = _stores._playerStore:GetAsync(userId) or table.clone(PlayerDataTemplate)
 	end
 
 	_logger:info(`данные игрока {userId} успешно получены`)
@@ -191,13 +195,14 @@ function DataSystem:UpdatePlayerData(userId: number, playerData: PlayerDataTempl
 	-- если игрока нет в игре то записываем дату после выхода и снова сохраняем
 	if not _utils:ValidatePlayer(userId) then
 		self:PostPlayerData(userId)
-		_logger:info(`данные игрока {userId} были обновлены после выхода игрока`)
+		_logger:info(
+			`данные игрока {userId} были обновлены после выхода игрока`
+		)
 	else
 		_logger:warn(`данные игрока {userId} обновлены`)
 		local player = Players:GetPlayerByUserId(userId)
 		_remotes:DataRemoteEventFireClient(player).receiveData(playerData)
 	end
-
 end
 
 -- ===================== Club API ===================== --
@@ -221,9 +226,7 @@ end
 
 function DataSystem:UpdateClubMembers(clubName: string, members: { number })
 	_sessionData._clubStore[clubName] = { members = members }
-	_logger:info(
-		`участники клуба {clubName} обновлены, текущее кол-во : {#members}`
-	)
+	_logger:info(`участники клуба {clubName} обновлены, текущее кол-во : {#members}`)
 end
 
 -- ===================== Championship API ===================== --
@@ -240,14 +243,23 @@ end
 function DataSystem:PostClubRating(clubName: string)
 	if _sessionData._championshipStore.currentWeek.clubs[clubName] then
 		if _canPost then
-			_stores._championshipStore.currentWeek.clubs.store:SetAsync(
-				clubName,
-				_sessionData._championshipStore.currentWeek.clubs[clubName]
-			)
+			_stores._championshipStore.currentWeek.clubs.store:UpdateAsync(clubName, function(_)
+				return _sessionData._championshipStore.currentWeek.clubs[clubName]
+			end)
 		end
 	end
 
 	_sessionData._championshipStore.currentWeek.clubs[clubName] = nil
+end
+
+function DataSystem:SaveClubRating(clubName: string)
+	if _sessionData._championshipStore.currentWeek.clubs[clubName] then
+		if _canPost then
+			_stores._championshipStore.currentWeek.clubs.store:UpdateAsync(clubName, function(_)
+				return _sessionData._championshipStore.currentWeek.clubs[clubName]
+			end)
+		end
+	end
 end
 
 function DataSystem:UpdateClubRating(clubName: string, value: number)
@@ -269,14 +281,23 @@ end
 function DataSystem:PostPlayerRating(userId: number)
 	if _sessionData._championshipStore.currentWeek.players[userId] then
 		if _canPost then
-			_stores._championshipStore.currentWeek.players.store:SetAsync(
-				userId,
-				_sessionData._championshipStore.currentWeek.players[userId]
-			)
+			_stores._championshipStore.currentWeek.players.store:UpdateAsync(userId, function(_)
+				return _sessionData._championshipStore.currentWeek.players[userId]
+			end)
 		end
 	end
 
 	_sessionData._championshipStore.currentWeek.players[userId] = nil
+end
+
+function DataSystem:SavePlayerRating(userId: number)
+	if _sessionData._championshipStore.currentWeek.players[userId] then
+		if _canPost then
+			_stores._championshipStore.currentWeek.players.store:UpdateAsync(userId, function(_)
+				return _sessionData._championshipStore.currentWeek.players[userId]
+			end)
+		end
+	end
 end
 
 function DataSystem:UpdatePlayerRating(userId: number, value: number)
@@ -289,7 +310,26 @@ function DataSystem:UpdatePlayerRating(userId: number, value: number)
 	if _sessionData._championshipStore.currentWeek.players[userId] then
 		_sessionData._championshipStore.currentWeek.players[userId] = value
 	end
-	
+end
+
+function DataSystem:GetClubTopPlayers(clubName: string)
+	-- отдельная бд для каждого клуба с рейтингом игроков
+	if not _sessionData._clubTopPlayersStore[clubName] then
+		_sessionData._clubTopPlayersStore[clubName] =
+			getOrderedPlayersData(DataStoreService:GetOrderedDataStore(clubName .. _currentWeek), 50)
+	end
+
+	return _sessionData._clubTopPlayersStore[clubName]
+end
+
+function DataSystem:UpdateClubTopPlayers(clubName: string)
+	if not _sessionData._clubTopPlayersStore[clubName] then
+		_sessionData._clubTopPlayersStore[clubName] =
+			getOrderedPlayersData(DataStoreService:GetOrderedDataStore(clubName .. _currentWeek), 50)
+	end
+
+	-- _sessionData._clubTopPlayersStore[clubName] =
+	-- 	getOrderedPlayersData(DataStoreService:GetOrderedDataStore(clubName .. _currentWeek), 50)
 end
 
 function DataSystem:GetCurrentWeekTopPlayers()

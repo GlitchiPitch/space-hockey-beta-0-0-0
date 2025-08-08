@@ -1,9 +1,10 @@
 local Types = require(script.Parent.Parent.Types)
 
 local FlyingController = {}
-local _logger, _remotes
 
 -- ===================== Private ===================== --
+local _logger, _remotes
+
 local function playerFly(player: Player, cameraCFrame: CFrame)
     
 end

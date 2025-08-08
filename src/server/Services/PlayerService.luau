@@ -70,4 +70,12 @@ function PlayerService:Setup()
     coroutine.wrap(updatePlayersBoost)()
 end
 
+function PlayerService:GetPlayerData(userId: number): Types.PlayerDataType
+	return _dataSystem:GetPlayerData(userId)
+end
+
+function PlayerService:UpdatePlayerData(userId: number, playerData: Types.PlayerDataType)
+	_dataSystem:UpdatePlayerData(userId, playerData)
+end
+
 return PlayerService

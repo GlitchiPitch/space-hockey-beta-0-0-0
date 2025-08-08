@@ -1,5 +1,6 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
+local Types = require(ReplicatedStorage.Shared.Types)
 --[[
     RemoteEventManager - модуль для управления клиент-серверной коммуникацией в Roblox
     Вдохновлено практиками из Unity (NetworkBehaviour, RPC и т.д.)
@@ -60,8 +61,8 @@ local RemoteEventManager = {
 			},
 			fromServer = {
 				receiveData = "receiveData",
-				receiveClubsMember = "receiveClubsMember",
-				receiveClubsRating = "receiveClubsRating",
+				receiveClubMembers = "receiveClubMembers",
+				receiveClubRating = "receiveClubRating",
 			},
 		},
 	},
@@ -166,10 +167,10 @@ if RunService:IsServer() then
 
 	function RemoteEventManager:DataRemoteEventFireAllClients()
 		return {
-			receiveClubsMember = function(data)
+			receiveClubMembers = function(data: Types.receiveClubMembersType)
 				_instances.dataRemoteEvent:FireAllClients(data)
 			end,
-			receiveClubsRating = function(data)
+			receiveClubRating = function(data: Types.receiveClubRatingType)
 				_instances.dataRemoteEvent:FireAllClients(data)
 			end,
 		}

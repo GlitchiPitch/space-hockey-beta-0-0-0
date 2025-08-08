@@ -22,25 +22,25 @@ local PlayerDataTemplate = {
 			boostMultiplier = 1,
 		},
 	},
-	
-    Inventory = {
-        skins = {
-            unlocked = {},
-            equipped = "",
-        },
-        sticks = {
-            unlocked = {},
-            equipped = "",
-        },
-        animations = {
-            unlocked = {},
-            equipped = "",
-        },
-        trails = {
-            unlocked = {},
-            equipped = "",
-        }
-    },
+
+	Inventory = {
+		skins = {
+			unlocked = {},
+			equipped = "",
+		},
+		sticks = {
+			unlocked = {},
+			equipped = "",
+		},
+		animations = {
+			unlocked = {},
+			equipped = "",
+		},
+		trails = {
+			unlocked = {},
+			equipped = "",
+		},
+	},
 
 	Tutorial = {
 		completed = false,
@@ -51,6 +51,10 @@ local PlayerDataTemplate = {
 	DailyReward = {
 		day = 1,
 		lastClaimed = 0,
+	},
+	
+	WeeklyReward = {
+		claimedWeeks = {} :: { number },
 	},
 
 	Badges = {} :: { string },

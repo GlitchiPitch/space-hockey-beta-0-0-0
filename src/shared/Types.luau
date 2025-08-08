@@ -42,4 +42,7 @@ export type FinalDataType = {
     playerTeam: TeamsEnum,
 }
 
+export type receiveClubMembersType = { clubName: string, members: number }
+export type receiveClubRatingType = { clubName: string, rating: number }
+
 return {}
