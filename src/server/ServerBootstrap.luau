@@ -58,6 +58,7 @@ function ServerBootstrap:Initialize()
 	self._managers = {
 		gameManager = require(script.Parent.Managers.GameManager),
 		dailyRewardManager = require(script.Parent.Managers.DailyRewardManager),
+		weeklyRewardManager = require(script.Parent.Managers.WeeklyRewardManager),
 	}
 
 	self._handlers = {

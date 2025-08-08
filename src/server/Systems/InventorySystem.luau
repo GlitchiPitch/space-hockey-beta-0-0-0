@@ -37,4 +37,6 @@ function InventorySystem:RemoveInventoryItemFromPlayer(
 )
 end
 
+function InventorySystem:SetCurrentItem(userId: number, itemType: Types.InventoryItemEnum, itemName: string) end
+
 return InventorySystem
